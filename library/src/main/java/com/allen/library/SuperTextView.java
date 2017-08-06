@@ -143,6 +143,24 @@ public class SuperTextView extends RelativeLayout {
 
     private int mTextViewDrawablePadding;
 
+    private int mLeftTopTextGravity;
+    private int mLeftTextGravity;
+    private int mLeftBottomTextGravity;
+
+    private int mCenterTopTextGravity;
+    private int mCenterTextGravity;
+    private int mCenterBottomTextGravity;
+
+    private int mRightTopTextGravity;
+    private int mRightTextGravity;
+    private int mRightBottomTextGravity;
+
+    private static final int text_gravity_left = 0;
+    private static final int text_gravity_center = 1;
+    private static final int text_gravity_right = 2;
+
+    private static final int default_text_gravity = 1;
+
     private static final int gravity_Left_Center = 0;
     private static final int gravity_Center = 1;
     private static final int gravity_Right_Center = 2;
@@ -364,6 +382,17 @@ public class SuperTextView extends RelativeLayout {
         mRightBottomMaxEms = typedArray.getInt(R.styleable.SuperTextView_sRightBottomMaxEms, defaultMaxEms);
 
         ////////////////////////////////////////////////
+        mLeftTopTextGravity = typedArray.getInt(R.styleable.SuperTextView_sLeftTopTextGravity, default_text_gravity);
+        mLeftTextGravity = typedArray.getInt(R.styleable.SuperTextView_sLeftTextGravity, default_text_gravity);
+        mLeftBottomTextGravity = typedArray.getInt(R.styleable.SuperTextView_sLeftBottomTextGravity, default_text_gravity);
+
+        mCenterTopTextGravity = typedArray.getInt(R.styleable.SuperTextView_sCenterTopTextGravity, default_text_gravity);
+        mCenterTextGravity = typedArray.getInt(R.styleable.SuperTextView_sCenterTextGravity, default_text_gravity);
+        mCenterBottomTextGravity = typedArray.getInt(R.styleable.SuperTextView_sCenterBottomTextGravity, default_text_gravity);
+
+        mRightTopTextGravity = typedArray.getInt(R.styleable.SuperTextView_sRightTopTextGravity, default_text_gravity);
+        mRightTextGravity = typedArray.getInt(R.styleable.SuperTextView_sRightTextGravity, default_text_gravity);
+        mRightBottomTextGravity = typedArray.getInt(R.styleable.SuperTextView_sRightBottomTextGravity, default_text_gravity);
 
         mLeftGravity = typedArray.getInt(R.styleable.SuperTextView_sLeftViewGravity, default_Gravity);
         mCenterGravity = typedArray.getInt(R.styleable.SuperTextView_sCenterViewGravity, default_Gravity);
@@ -625,6 +654,7 @@ public class SuperTextView extends RelativeLayout {
         setDefaultMaxEms(leftView, mLeftTopMaxEms, mLeftMaxEms, mLeftBottomMaxEms);
         setDefaultTextIsBold(leftView, mLeftTopTextBold, mLeftTextBold, mLeftBottomTextBold);
         setDefaultGravity(leftView, mLeftGravity);
+        setDefaultTextGravity(leftView, mLeftTopTextGravity, mLeftTextGravity, mLeftBottomTextGravity);
         setDefaultDrawable(leftView.getCenterTextView(), mLeftTvDrawableLeft, mLeftTvDrawableRight, mTextViewDrawablePadding);
         setDefaultBackground(leftView.getCenterTextView(), mLeftTextBackground);
         setDefaultString(leftView, mLeftTopTextString, mLeftTextString, mLeftBottomTextString);
@@ -661,6 +691,7 @@ public class SuperTextView extends RelativeLayout {
         setDefaultMaxEms(centerView, mCenterTopMaxEms, mCenterMaxEms, mCenterBottomMaxEms);
         setDefaultTextIsBold(centerView, mCenterTopTextBold, mCenterTextBold, mCenterBottomTextBold);
         setDefaultGravity(centerView, mCenterGravity);
+        setDefaultTextGravity(centerView, mCenterTopTextGravity, mCenterTextGravity, mCenterBottomTextGravity);
         setDefaultDrawable(centerView.getCenterTextView(), mCenterTvDrawableLeft, mCenterTvDrawableRight, mTextViewDrawablePadding);
         setDefaultBackground(centerView.getCenterTextView(), mCenterTextBackground);
         setDefaultString(centerView, mCenterTopTextString, mCenterTextString, mCenterBottomTextString);
@@ -690,6 +721,7 @@ public class SuperTextView extends RelativeLayout {
         setDefaultMaxEms(rightView, mRightTopMaxEms, mRightMaxEms, mRightBottomMaxEms);
         setDefaultTextIsBold(rightView, mRightTopTextBold, mRightTextBold, mRightBottomTextBold);
         setDefaultGravity(rightView, mRightGravity);
+        setDefaultTextGravity(rightView, mRightTopTextGravity, mRightTextGravity, mRightBottomTextGravity);
         setDefaultRightTvDrawable(rightView.getCenterTextView(), mRightTvDrawableLeft, mRightTvDrawableRight, mTextViewDrawablePadding);
         setDefaultBackground(rightView.getCenterTextView(), mRightTextBackground);
         setDefaultString(rightView, mRightTopTextString, mRightTextString, mRightBottomTextString);
@@ -868,15 +900,15 @@ public class SuperTextView extends RelativeLayout {
      */
     private void setDefaultLines(BaseTextView baseTextView, int leftTopLines, int leftLines, int bottomLines) {
         if (baseTextView != null) {
-            baseTextView.getTopTextView().setLines(leftTopLines);
-            baseTextView.getCenterTextView().setLines(leftLines);
-            baseTextView.getBottomTextView().setLines(bottomLines);
+            baseTextView.getTopTextView().setMaxLines(leftTopLines);
+            baseTextView.getCenterTextView().setMaxLines(leftLines);
+            baseTextView.getBottomTextView().setMaxLines(bottomLines);
         }
 
     }
 
     /**
-     * 设置文字对其方式
+     * 设置布局对其方式
      *
      * @param baseTextView baseTextView
      * @param gravity      对其方式
@@ -888,7 +920,7 @@ public class SuperTextView extends RelativeLayout {
     }
 
     /**
-     * 文字对其方式
+     * 布局对其方式
      *
      * @param baseTextView textView
      * @param gravity      对其方式
@@ -903,6 +935,42 @@ public class SuperTextView extends RelativeLayout {
                 break;
             case gravity_Right_Center:
                 baseTextView.setGravity(Gravity.RIGHT | Gravity.CENTER_VERTICAL);
+                break;
+        }
+    }
+
+    /**
+     * 设置文字对其方式
+     *
+     * @param baseTextView      baseTextView
+     * @param topTextGravity    topTextGravity
+     * @param centerTextGravity centerTextGravity
+     * @param bottomTextGravity bottomTextGravity
+     */
+    private void setDefaultTextGravity(BaseTextView baseTextView, int topTextGravity, int centerTextGravity, int bottomTextGravity) {
+        if (baseTextView != null) {
+            setTextViewGravity(baseTextView.getTopTextView(), topTextGravity);
+            setTextViewGravity(baseTextView.getCenterTextView(), centerTextGravity);
+            setTextViewGravity(baseTextView.getBottomTextView(), bottomTextGravity);
+        }
+    }
+
+    /**
+     * 文字对其方式
+     *
+     * @param textView textView
+     * @param gravity  对其方式
+     */
+    private void setTextViewGravity(TextView textView, int gravity) {
+        switch (gravity) {
+            case text_gravity_left:
+                textView.setGravity(Gravity.LEFT | Gravity.CENTER_VERTICAL);
+                break;
+            case text_gravity_center:
+                textView.setGravity(Gravity.CENTER);
+                break;
+            case text_gravity_right:
+                textView.setGravity(Gravity.RIGHT | Gravity.CENTER_VERTICAL);
                 break;
         }
     }

@@ -6,9 +6,12 @@ import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.View;
+import android.widget.Toast;
 
 import com.allen.supertextview.adapter.NewsAdapter;
 import com.allen.supertextview.bean.NewsBean;
+import com.zhy.adapter.recyclerview.MultiItemTypeAdapter;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -45,6 +48,17 @@ public class ListActivity extends AppCompatActivity implements SwipeRefreshLayou
         swipeRefreshLayout = (SwipeRefreshLayout) findViewById(R.id.swipe_refresh_layout);
         recyclerView = (RecyclerView) findViewById(R.id.recycler_view);
         adapter = new NewsAdapter(this, getData());
+        adapter.setOnItemClickListener(new MultiItemTypeAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClick(View view, RecyclerView.ViewHolder holder, int position) {
+                Toast.makeText(ListActivity.this, "" + position, Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public boolean onItemLongClick(View view, RecyclerView.ViewHolder holder, int position) {
+                return false;
+            }
+        });
         LinearLayoutManager layoutManager = new LinearLayoutManager(this);
         layoutManager.setOrientation(LinearLayoutManager.VERTICAL);
         recyclerView.setLayoutManager(layoutManager);
@@ -58,7 +72,7 @@ public class ListActivity extends AppCompatActivity implements SwipeRefreshLayou
             NewsBean newsBean = new NewsBean();
             newsBean.setImgUrl(url[i]);
             newsBean.setTitle("新闻标题" + i);
-            newsBean.setTime("哈佛有嘻哈教你如何用一个freestyle轻松毕业" + i);
+            newsBean.setTime("支持换行显示并且可以设置换行后文字左右对齐方式" + i);
             newsBeanList.add(newsBean);
         }
         return newsBeanList;

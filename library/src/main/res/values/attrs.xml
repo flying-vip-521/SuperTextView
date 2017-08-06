@@ -67,6 +67,53 @@
         <attr name="sRightTopMaxEms" format="integer" />
         <attr name="sRightMaxEms" format="integer" />
         <attr name="sRightBottomMaxEms" format="integer" />
+        <!-- -->
+        <attr name="sLeftTopTextGravity" format="enum">
+            <enum name="left" value="0" />
+            <enum name="center" value="1" />
+            <enum name="right" value="2" />
+        </attr>
+        <attr name="sLeftTextGravity" format="enum">
+            <enum name="left" value="0" />
+            <enum name="center" value="1" />
+            <enum name="right" value="2" />
+        </attr>
+        <attr name="sLeftBottomTextGravity" format="enum">
+            <enum name="left" value="0" />
+            <enum name="center" value="1" />
+            <enum name="right" value="2" />
+        </attr>
+        <attr name="sCenterTopTextGravity" format="enum">
+            <enum name="left" value="0" />
+            <enum name="center" value="1" />
+            <enum name="right" value="2" />
+        </attr>
+        <attr name="sCenterTextGravity" format="enum">
+            <enum name="left" value="0" />
+            <enum name="center" value="1" />
+            <enum name="right" value="2" />
+        </attr>
+        <attr name="sCenterBottomTextGravity" format="enum">
+            <enum name="left" value="0" />
+            <enum name="center" value="1" />
+            <enum name="right" value="2" />
+        </attr>
+
+        <attr name="sRightTopTextGravity" format="enum">
+            <enum name="left" value="0" />
+            <enum name="center" value="1" />
+            <enum name="right" value="2" />
+        </attr>
+        <attr name="sRightTextGravity" format="enum">
+            <enum name="left" value="0" />
+            <enum name="center" value="1" />
+            <enum name="right" value="2" />
+        </attr>
+        <attr name="sRightBottomTextGravity" format="enum">
+            <enum name="left" value="0" />
+            <enum name="center" value="1" />
+            <enum name="right" value="2" />
+        </attr>
         <!--  -->
         <attr name="sLeftViewGravity" format="enum">
             <enum name="left_center" value="0" />
